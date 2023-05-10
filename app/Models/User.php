@@ -5,7 +5,7 @@
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
-    use Laravel\Sanctum\HasApiTokens;
+    use Laravel\Passport\HasApiTokens;
     use Laratrust\Traits\LaratrustUserTrait;
     use Illuminate\Support\Str;
 
@@ -50,6 +50,10 @@
         protected $casts = [
             'email_verified_at' => 'datetime',
         ];
+
+        public function postCollections() {
+            return $this->hasMany(PostCollection::class);
+        }
 
         protected static function boot() {
             parent::boot();

@@ -1,19 +1,31 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\PostmanCollectionController;
+    use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes
+    |--------------------------------------------------------------------------
+    |
+    | Here is where you can register API routes for your application. These
+    | routes are loaded by the RouteServiceProvider within a group which
+    | is assigned the "api" middleware group. Enjoy building your API!
+    |
+    */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    /**
+     * -----------------------------
+     * Authenticated user routes
+     * ------------------------------
+     */
+    Route::group(['middleware' => 'auth:api'], function() {
+        /**
+         * -----------------------------------------------
+         * Coolection API routes
+         * ------------------------------------------------
+         */
+        Route::get('/collections', [PostmanCollectionController::class, 'index'])->name('get.collection');
+        Route::post('/collections', [PostmanCollectionController::class, 'store'])->name('store.collections');
+        Route::delete('/collections/{collection}', [PostmanCollectionController::class, 'destroy'])->name('delete.collections');
+    });
