@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@kangc/v-md-editor": "^1.7.11",
         "postman-collection": "^4.1.7"
     }
 }

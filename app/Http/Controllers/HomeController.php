@@ -2,6 +2,8 @@
 
     namespace App\Http\Controllers;
 
+use App\Models\PostCollection;
+
     class HomeController extends Controller {
         /**
          * Show the home page
@@ -28,5 +30,14 @@
          */
         public function dashboard() {
             return view('pages.dashboard');
+        }
+
+        /**
+         * Show the dashboard page
+         *
+         * @return \Illuminate\Http\Response
+         */
+        public function documentation(PostCollection $collection) {
+            return view('pages.documentation', compact('collection'));
         }
     }

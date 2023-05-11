@@ -1,5 +1,5 @@
 <template>
-    <ul class="space-y-2 font-medium p-0 m-0">
+    <ul class="space-y-2 font-medium p-0 m-0 relative">
         <li>
             <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                 <div class="flex items-center space-x-4 mr-3">
@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li class="cursor-pointer" v-for="collection in collections" :key="collection.id">
-                    <a @click="loadCollection(collection.file)" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:hover:bg-gray-700">
+                    <a @click="loadCollection(collection)" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:hover:bg-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
                         </svg>
@@ -40,7 +40,37 @@
         </li>
 
         <hr class="mt-4 mb-4">
-        <h4 class="mx-2 font-anek mb-3 text-gray-400">{{ activeCollection }}</h4>
+
+        <div class="active-collection relative h-10 min-h-20">
+            <h4 class="mx-2 font-anek mb-3 text-gray-400" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden !important;">
+                {{ activeFile.name }}
+            </h4>
+
+            <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" class="inline-flex ring-1 ring-gray-50 absolute shadow-sm right-0 -top-2 items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="dropdownDots" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                <ul v-if="Object.keys(items).length > 0" class="p-0 m-0 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        Export .docx
+                    </a></li>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        Export .pdf
+                    </a></li>
+                    <li><a :href="'/documentation/'+activeCollection.id" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        View documentation
+                    </a></li>
+                </ul>
+                <div v-if="Object.keys(items).length > 0" class="py-2">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-100 dark:hover:bg-red-600 dark:text-red-200 dark:hover:text-white">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <placeholder v-if="Object.keys(items).length <= 0" />
         <render-forlder v-for="item in items.item" :key="item.name+Math.random().toString(16).slice(2)" :forlder="item" />
     </ul>
@@ -63,6 +93,7 @@
                 collections: {},
                 isLoading: false,
                 activeCollection: "",
+                activeFile: "",
                 data: {
                     collection: ""
                 }
@@ -120,9 +151,10 @@
                 this.isLoading = false;
                 this.hasResponse = true;
             },
-            loadCollection(file) {
-                this.items = file;
-                this.activeCollection = file.info.name;
+            loadCollection(collection) {
+                this.items = collection.file;
+                this.activeCollection = collection;
+                this.activeFile = collection.file.info;
             },
             async inspectCollection(path) {
                 let result = fetch(`/storage/${path}`)

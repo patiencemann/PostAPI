@@ -99,5 +99,7 @@
             window.location.reload();
         }
     </script>
+
+    @yield('script')
 </body>
 </html>
