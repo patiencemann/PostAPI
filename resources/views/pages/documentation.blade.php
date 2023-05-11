@@ -1,0 +1,17 @@
+@extends('layouts.app')
+
+@section('title') documentation @stop
+
+@section('style')
+    <link rel="stylesheet" href="/css/documentation.css">
+@stop
+
+@section('content')
+    <x-nav-bar />
+
+    <div id="downloadable">
+        <div class="section no-bottom-padding wf-section">
+            <compile-collection collection="{{ json_encode($collection) }}" />
+        </div>
+    </div>
+@stop
