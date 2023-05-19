@@ -92,10 +92,10 @@ figcaption {
     text-align: center;
 }
 
-.main-container {
-    width: 100%;
-    max-width: 730px;
+.post-contents-wrapper {
+    max-width: 740px;
     margin-right: auto;
+    margin-bottom: 20px !important;
     margin-left: auto;
     padding-right: 40px;
     padding-left: 40px;
@@ -197,10 +197,6 @@ figcaption {
 .post-author-container {
     padding-top: 10px;
     padding-bottom: 10px;
-}
-
-.post-body {
-    margin-top: 20px;
 }
 
 .call-to-action-container {
@@ -635,16 +631,6 @@ figcaption {
 
 .resource-link:hover {
     opacity: 0.7;
-}
-
-.single-post-title {
-    max-width: 800px;
-    margin-right: auto;
-    margin-bottom: 70px;
-    margin-left: auto;
-    padding-right: 40px;
-    padding-left: 40px;
-    text-align: center;
 }
 
 .open-menu-button {

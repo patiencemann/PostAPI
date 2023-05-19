@@ -1,7 +1,7 @@
 {{-- <overlay-loader></overlay-loader> --}}
-<header class="site-header border-b-2 border-gray-300" style="background-image: url('/img/space-guy.jpg')">
-    <div class="container">
-        <div class="header-inner flex justify-space-between dark:bg-deep-green-800">
+<header class="site-header sticky top-0 z-50 border-b-2 border-gray-300" style="background-image: url('/img/space-guy.jpg')">
+    <div class="container transition-all">
+        <div class="header-inner dark:bg-[#0b14374d] flex justify-space-between dark:bg-deep-green-800">
             <div class="flex items-center">
 
                 {{-- MObile sidebar --}}
@@ -223,7 +223,7 @@
                         </div>
                         <span class="self-center text-3xl mt-2 font-semibold whitespace-nowrap dark:text-white ml-4"
                             style="font-family: 'Anek Telugu', sans-serif; font-weight: 700;">
-                            Postapi
+                            POSTAPI
                         </span>
                     </a>
                     <div id="tooltip-logo-1" role="tooltip"

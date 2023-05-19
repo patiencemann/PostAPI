@@ -38,6 +38,8 @@ use App\Models\PostCollection;
          * @return \Illuminate\Http\Response
          */
         public function documentation(PostCollection $collection) {
+            $collection->with(['user']);
+
             return view('pages.documentation', compact('collection'));
         }
     }

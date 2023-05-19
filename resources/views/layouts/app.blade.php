@@ -45,7 +45,7 @@
         }
     </script>
 </head>
-<body class="dark:bg-deep-green-800">
+<body class="dark:bg-deep-green-800 overflow-x-hidden">
     <div id="app">
         @yield('content')
     </div>

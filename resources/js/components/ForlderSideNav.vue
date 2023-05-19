@@ -1,7 +1,7 @@
 <template>
     <ul class="space-y-2 font-medium p-0 m-0 relative">
         <li>
-            <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+            <button type="button" class="flex rounded-[20px] bg-clip-border shadow-3xl shadow-shadow-500 items-center w-full p-2 text-gray-900 transition duration-75 group bg-[#f5f7fe] dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                 <div class="flex items-center space-x-4 mr-3">
                     <img class="w-10 h-10 rounded-full" :src="authUser.avatar" alt="">
                     <div class="font-medium dark:text-white truncate ... w-32">
@@ -39,9 +39,7 @@
             </ul>
         </li>
 
-        <hr class="mt-4 mb-4">
-
-        <div class="active-collection relative h-10 min-h-20">
+        <div class="active-collection relative h-10 min-h-20 mt-4">
             <h4 class="mx-2 font-anek mb-3 text-gray-400" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden !important;">
                 {{ activeFile.name }}
             </h4>
@@ -53,12 +51,6 @@
             <!-- Dropdown menu -->
             <div id="dropdownDots" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                 <ul v-if="Object.keys(items).length > 0" class="p-0 m-0 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                        Export .docx
-                    </a></li>
-                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                        Export .pdf
-                    </a></li>
                     <li><a :href="'/documentation/'+activeCollection.id" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         View documentation
                     </a></li>

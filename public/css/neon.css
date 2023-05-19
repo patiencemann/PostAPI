@@ -33,8 +33,8 @@
 
 .header-inner {
     background-color: var(--card-background-color);
-    padding: 1.6rem 2.2rem;
-    border-radius: 20px;
+    padding: 1.3rem 2.2rem;
+    border-radius: 10px;
     box-shadow: var(--shadow);
     align-items: center;
 }
