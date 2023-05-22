@@ -6,6 +6,7 @@
     use App\Http\Resources\PostCollectionResource;
     use App\Models\PostCollection;
     use App\Traits\FileStorage;
+    use Illuminate\Http\Request;
 
     class PostmanCollectionController extends Controller {
         use FileStorage;
@@ -37,10 +38,23 @@
                 return response()->json([
                     "data" => PostCollectionResource::make($postCollection),
                     "message" => "collection imported"
-                ]);
+                ], 201);
             }
 
-            return response()->json([ "message" => "collection not found" ]);
+            return response()->json([ "message" => "collection not found" ], 400);
+        }
+
+        /**
+         * Store a newly created resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
+         */
+        public function repost(PostCollection $collection, Request $request) {
+            $file = public_path()."/storage/".$collection->collection_url;
+            file_put_contents($file, json_encode($request->new_collection_contents));
+
+            return response()->json([ "message" => "collection reposted and updated" ], 200);
         }
 
         /**

@@ -27,5 +27,6 @@
          */
         Route::get('/collections', [PostmanCollectionController::class, 'index'])->name('get.collection');
         Route::post('/collections', [PostmanCollectionController::class, 'store'])->name('store.collections');
+        Route::post('/repost/collections/{collection}', [PostmanCollectionController::class, 'repost'])->name('repost.collections');
         Route::delete('/collections/{collection}', [PostmanCollectionController::class, 'destroy'])->name('delete.collections');
     });

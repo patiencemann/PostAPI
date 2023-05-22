@@ -14,15 +14,9 @@
                 </svg>
             </button>
             <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                <li class="cursor-pointer">
-                    <input id="custom_file" type="file" @change="onFileChange" style="display: none">
-                    <a @click="importFile" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-indigo-100 dark:hover:bg-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                        </svg>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Import Collection</span>
-                    </a>
-                </li>
+
+                <import-collection />
+
                 <li class="cursor-pointer" v-for="collection in collections" :key="collection.id">
                     <a @click="loadCollection(collection)" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:hover:bg-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -106,48 +100,13 @@
 
                 this.isLoading = false;
             },
-            importFile() {
-                document.getElementById('custom_file').click();
-            },
-            /**
-             * listern to inputfile change
-             * and keep image in data handler
-            */
-            onFileChange(e) {
-                this.data.collection = e.target.files[0];
-                this.submitCollection();
-            },
 
-            /**
-             * Store and publish custom blog
-             * then redirect back to dashboard
-            */
-            async submitCollection() {
-                this.isLoading = true;
-
-                try{
-                    let formData = new FormData;
-                        formData.append('collection', this.data.collection);
-
-                    let response = await axios.post("/api/collections", formData);
-
-                    this.responseType = "success";
-                    this.response = response.data.message;
-
-                    this.getCollections();
-                } catch(error) {
-                    this.responseType = "error";
-                    this.response = "something went wrong";
-                }
-
-                this.isLoading = false;
-                this.hasResponse = true;
-            },
             loadCollection(collection) {
                 this.items = collection.file;
                 this.activeCollection = collection;
                 this.activeFile = collection.file.info;
             },
+
             async inspectCollection(path) {
                 let result = fetch(`/storage/${path}`)
                     .then((response) => response.json())
