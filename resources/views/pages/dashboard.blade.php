@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') dashboard @stop
+@section('title') collections @stop
 
 @section('content')
     <x-nav-bar />

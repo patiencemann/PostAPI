@@ -2,7 +2,8 @@
 
     namespace App\Http\Controllers;
 
-use App\Models\PostCollection;
+    use App\Models\PostCollection;
+    use Illuminate\Support\Facades\Auth;
 
     class HomeController extends Controller {
         /**
@@ -20,6 +21,7 @@ use App\Models\PostCollection;
          * @return \Illuminate\Http\Response
          */
         public function login() {
+            if(Auth::check()) return redirect()->route('dashboard');
             return view('pages.login');
         }
 

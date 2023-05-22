@@ -18,46 +18,46 @@
             <div class="mb-4 border-b border-t border-gray-200 py-2 dark:border-gray-700">
                 <ul class="flex flex-wrap text-md font-bold font-anek text-left p-0 m-0" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                     <li class="mr-2" role="presentation">
-                        <button class="inline-block py-2 px-4 rounded hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="auth-tab" data-tabs-target="#auth" type="button" role="tab" aria-controls="auth" aria-selected="false">
+                        <button class="inline-block py-2 px-4 rounded hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="auth-tab" @click="openActiveTab('auth-content-tab')" data-tabs-target="#auth" type="button" role="tab" aria-controls="auth" aria-selected="false">
                             Auth
                         </button>
                     </li>
                     <li class="mr-2" role="presentation">
-                        <button class="inline-block py-2 px-4 rounded" id="headers-tab" data-tabs-target="#headers" type="button" role="tab" aria-controls="headers" aria-selected="false">
+                        <button class="inline-block py-2 px-4 rounded" id="headers-tab" data-tabs-target="#headers" type="button" role="tab" @click="openActiveTab('headers-content-tab')" aria-controls="headers" aria-selected="false">
                             Headers
                         </button>
                     </li>
                     <li class="mr-2" role="presentation">
-                        <button class="inline-block p-3 py-2 px-4 rounded hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="body-tab" data-tabs-target="#body" type="button" role="tab" aria-controls="body" aria-selected="false">
+                        <button class="inline-block p-3 py-2 px-4 rounded hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="body-tab" data-tabs-target="#body" @click="openActiveTab('body-content-tab')" type="button" role="tab" aria-controls="body" aria-selected="false">
                             Body
                         </button>
                     </li>
                     <li role="presentation">
-                        <button class="inline-block py-2 px-4 rounded hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="params-tab" data-tabs-target="#params" type="button" role="tab" aria-controls="params" aria-selected="false">
+                        <button class="inline-block py-2 px-4 rounded hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="params-tab" data-tabs-target="#params" @click="openActiveTab('params-content-tab')" type="button" role="tab" aria-controls="params" aria-selected="false">
                             Params
                         </button>
                     </li>
                     <li class="mr-2" role="presentation">
-                        <button class="inline-block py-2 px-4 rounded hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="Description-tab" data-tabs-target="#Description" type="button" role="tab" aria-controls="Description" aria-selected="true">
+                        <button class="inline-block py-2 px-4 rounded hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="Description-tab" data-tabs-target="#Description" @click="openActiveTab('description-content-tab')" type="button" role="tab" aria-controls="Description" aria-selected="true">
                             Description
                         </button>
                     </li>
                 </ul>
             </div>
             <div id="myTabContent">
-                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="auth" role="tabpanel" aria-labelledby="auth-tab">
+                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="auth-content-tab" role="tree-1-tabs" aria-labelledby="auth-tab">
                     <request-auth :auths="request.request?.auth !== undefined ? request.request.auth : {} " />
                 </div>
-                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="headers" role="tabpanel" aria-labelledby="headers-tab">
+                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="headers-content-tab" role="tree-1-tabs" aria-labelledby="headers-tab">
                     <request-headers :headers="request.request?.header !== undefined ? request.request.header : {} " />
                 </div>
-                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="body" role="tabpanel" aria-labelledby="body-tab">
+                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="body-content-tab" role="tree-1-tabs" aria-labelledby="body-tab">
                     <request-body :body="request.request?.body !== undefined ? request.request.body : {} " />
                 </div>
-                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="params" role="tabpanel" aria-labelledby="params-tab">
+                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="params-content-tab" role="tree-1-tabs" aria-labelledby="params-tab">
                     <request-params :param="request.request?.params !== undefined ? request.request.params : {} " />
                 </div>
-                <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="Description" role="tabpanel" aria-labelledby="Description-tab">
+                <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="description-content-tab" role="tree-1-tabs" aria-labelledby="Description-tab">
                     <request-description :name="request.name" :desc="request?.description !== undefined ? request.description : '' " />
                 </div>
             </div>
@@ -72,6 +72,15 @@
             return {
                 request: {},
                 isOpen: false
+            }
+        },
+        methods: {
+            openActiveTab(tabId) {
+                document.querySelectorAll('[role="tree-1-tabs"]').forEach((Element) => {
+                    Element.classList.add('hidden');
+                });
+
+                document.getElementById(tabId).classList.remove('hidden');
             }
         },
         mounted() {
