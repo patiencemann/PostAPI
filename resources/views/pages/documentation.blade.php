@@ -9,6 +9,9 @@
 @section('content')
     <x-nav-bar />
 
+    <div><pop-message /></div>
+    <div><global-collection /></div>
+
     <div id="downloadable">
         <div class="section no-bottom-padding wf-section">
             <compile-collection

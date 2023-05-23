@@ -60,15 +60,21 @@ export default {
                 formData.append("collection", this.data.collection);
 
                 let response = await axios.post("/api/collections", formData);
-
-                this.responseType = "success";
-                this.response = response.data.message;
                 let data = response.data.data;
+
+                this.$root.$emit('new_message', {
+                    responseType: "success",
+                    response: response.data.message,
+                    hasResponse: true
+                });
 
                 this.collectionStamper(data.id, data.collection_url);
             } catch (error) {
-                this.responseType = "error";
-                this.response = "something went wrong";
+                this.$root.$emit('new_message', {
+                    responseType: "error",
+                    response: "Something went wrong",
+                    hasResponse: true
+                });
             }
 
             this.isLoading = false;

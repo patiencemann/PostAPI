@@ -4,7 +4,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
             </svg>
-            <span class="flex-1 ml-3 whitespace-nowrap" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden !important;">{{ forlder.name }}</span>
+            <span class="flex-1 ml-3 whitespace-nowrap truncate">{{ forlder.name }}</span>
             <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-50 bg-green-500 rounded-full dark:bg-gray-700 dark:text-gray-300">{{ forlder.item.length }}</span>
         </a>
         <ul v-if="forlder?.item" :id="'dropdown-'+forlder.name+'-'+uniqueIdentifier" class="hidden">

@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Http\Requests\StoreCollectionRequest;
+    use App\Http\Requests\UpdateCollectionRequest;
     use App\Http\Resources\PostCollectionResource;
     use App\Models\PostCollection;
     use App\Traits\FileStorage;
@@ -71,5 +72,70 @@
             $collection->delete();
 
             return response()->json([ "message" => "Collection have been deleted "]);
+        }
+
+        /**
+         * Update json file based on request
+         *
+         * @param PostCollection $collection
+         * @param UpdateCollectionRequest $request
+         * @return JsonResponse
+         */
+        public function updateCollection(PostCollection $collection, UpdateCollectionRequest $request) {
+            $collectionFile = public_path()."/storage/".$collection->collection_url;
+            $collectionJson = file_get_contents($collectionFile, false);
+
+            // Converts JSON into an associative array.
+            $collectionItems = json_decode($collectionJson, true);
+
+            $updatedCollection = [];
+
+            if($request->section == "info.name") {
+                $collectionItems['info']['name'] = $request->changes['name'];
+            }
+
+            if($request->section == "info.description") {
+                $collectionItems['info']['description'] = $request->changes['description'];
+            }
+
+            $updatedCollection['info'] = $collectionItems['info'];
+            $updatedCollection['auth'] = $collectionItems['auth'];
+            $updatedCollection['event'] = $collectionItems['event'];
+            $updatedCollection['item'] = $collectionItems['item'];
+
+            if($request->section == "item") {
+                $collectionIn = $this->traverseThroughJSON($collectionItems['item'], $request->id, $request->changes);
+                $updatedCollection['item'] = $collectionIn;
+            }
+
+            $collectionJson = file_put_contents($collectionFile, json_encode($updatedCollection));
+            return response()->json([ "message" => "Collection have been updated "]);
+        }
+
+        /**
+         * A recursive function to traverse the GeoJSON array.
+         *
+         * @param $collectionItems
+         * @param $search
+         * @param $changes
+         */
+        private function traverseThroughJSON($collectionItems, $search, $changes) {
+            foreach ($collectionItems as $key => $value) {
+                if (is_array($value)) {
+                    $collectionItems[$key] = $this->traverseThroughJSON($value, $search, $changes);
+                } elseif ($key === 'id') {
+                    if($value == $search) {
+                        if(isset($changes['name'])) {
+                            $collectionItems['name'] = $changes['name'];
+                        }
+
+                        if(isset($changes["description"])) {
+                            $collectionItems["description"] = $changes['description'];
+                        }
+                    }
+                }
+            }
+
+            return $collectionItems;
         }
     }

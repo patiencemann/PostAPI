@@ -1,17 +1,17 @@
 <template>
     <div class="p-2" style="width: 100%" v-if="isOpen">
-        <div class="tabnet-content rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500">
+        <div class="tabnet-content rounded-[10px] border border-gray-200 transition delay-150 duration-700 ease-in-out bg-white bg-clip-border shadow-3xl shadow-shadow-500 max-h-[80vh] mb-2 mt-1">
             <div class="request-input flex justify-start pt-4 px-4 pb-0">
                 <div class="">
                     <select :value="request.request?.method !== undefined ? request.request.method : ''" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="GET">GET</option>
-                        <option value="POST">POST</option>
-                        <option value="DELETE">DELETE</option>
-                        <option value="PUT">PUT</option>
+                        <option value="GET" class="text-green-800">GET</option>
+                        <option value="POST" class="text-indigo-800">POST</option>
+                        <option value="DELETE" class="text-red-800">DELETE</option>
+                        <option value="PUT" class="text-gray-800">PUT</option>
                     </select>
                 </div>
                 <div class="mb-6 w-96 ml-3">
-                    <input :value="request.request?.url !== undefined ? (request.request.url?.raw !== undefined ? request.request.url.raw : '') : ''" type="text" id="success" class="bg-gray-50 border border-gray-500 text-green-900 dark:text-green-400 placeholder-gray-400 dark:placeholder-green-500 text-md rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.8 dark:bg-gray-700 dark:border-green-500" placeholder="https://api.example.com/api">
+                    <input :value="request.request?.url !== undefined ? (request.request.url?.raw !== undefined ? request.request.url.raw : '') : ''" type="text" id="success" class="bg-gray-50 border border-gray-500 text-gray-600 font-anek font-bold dark:text-green-400 placeholder-gray-400 dark:placeholder-green-500 text-md leading-3 rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.8 dark:bg-gray-700 dark:border-green-500" placeholder="https://api.example.com/api">
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                     <request-params :param="request.request?.params !== undefined ? request.request.params : {} " />
                 </div>
                 <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="description-content-tab" role="tree-1-tabs" aria-labelledby="Description-tab">
-                    <request-description :name="request.name" :desc="request?.description !== undefined ? request.description : '' " />
+                    <request-description :name="request.name" :desc="request?.description !== undefined ? request.description : '' " :id="request.id" />
                 </div>
             </div>
 

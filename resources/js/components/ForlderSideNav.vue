@@ -6,14 +6,14 @@
                     <img class="w-10 h-10 rounded-full" :src="authUser.avatar" alt="">
                     <div class="font-medium dark:text-white truncate ... w-32">
                         <div class="text-left font-anek font-bold">{{ authUser.name }}</div>
-                        <div class="text-sm text-left font-anek text-gray-500 dark:text-gray-400">Joined in {{ authUser.created_at }}</div>
+                        <div class="text-sm text-left font-anek text-gray-500 dark:text-gray-400 truncate">Joined in {{ authUser.created_at }}</div>
                     </div>
                 </div>
                 <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
             </button>
-            <ul id="dropdown-example" class="hidden p-0 m-0 mt-2">
+            <ul id="dropdown-example" class="hidden p-0 m-0 mt-2 transition delay-150 duration-700 ease-in-out">
 
                 <import-collection />
 
@@ -24,7 +24,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
                                 </svg>
-                                <span class="flex-1 ml-3 whitespace-nowrap">
+                                <span class="flex-1 ml-3 truncate">
                                     {{ collection.file.info.name }}
                                 </span>
                             </a>
@@ -39,7 +39,7 @@
         </li>
 
         <div class="active-collection relative h-10 min-h-20 mt-4">
-            <h4 class="mx-2 font-anek mb-3 text-gray-400" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden !important;">
+            <h4 class="mx-2 font-anek mb-3 text-gray-400 truncate">
                 {{ activeFile.name }}
             </h4>
 
@@ -84,6 +84,8 @@
                 items: {},
                 collections: {},
                 isLoading: false,
+                responseType: null,
+                response: null,
                 activeCollection: "",
                 activeFile: "",
             };
@@ -108,7 +110,9 @@
                 this.items = collection.file;
                 this.activeCollection = collection;
                 this.activeFile = collection.file.info;
+
                 this.passInitialUnFoldedRequest();
+                this.$root.$emit('load_collection', collection);
             },
 
             async inspectCollection(path) {
@@ -131,7 +135,7 @@
                 (requests.length > 0)
                     ? this.$root.$emit('newRequests', requests)
                     : this.$root.$emit('newRequests', null)
-            }
+            },
         },
         mounted() {
             this.getCollections();
