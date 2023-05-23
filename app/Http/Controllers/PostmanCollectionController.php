@@ -54,7 +54,10 @@
             $file = public_path()."/storage/".$collection->collection_url;
             file_put_contents($file, json_encode($request->new_collection_contents));
 
-            return response()->json([ "message" => "collection reposted and updated" ], 200);
+            return response()->json([
+                "message" => "collection reposted and updated",
+                "data" => PostCollectionResource::make($collection)
+            ], 200);
         }
 
         /**

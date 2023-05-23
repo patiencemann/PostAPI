@@ -6,7 +6,7 @@
             @change="onFileChange"
             style="display: none"
         />
-        <a @click="importFile" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-indigo-100 dark:hover:bg-gray-700">
+        <a @click="importFile" class="border border-gray-200 flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-indigo-100 dark:hover:bg-gray-700">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -103,9 +103,7 @@ export default {
                             name: value.name,
                             id: Math.random().toString(16).slice(2),
                             item: this.recursiveMap(value.item, callback),
-                            description: value?.description
-                                ? value.description
-                                : "",
+                            description: value?.description ? value.description : "",
                         };
                     }
                 } else {
@@ -123,6 +121,7 @@ export default {
                 .then((response) => {
                     this.responseType = "success";
                     this.response = response.data.message;
+                    this.$root.$emit('refresh_collections', response.data.data.collection_url);
                 });
         },
 

@@ -1,7 +1,7 @@
 <template>
     <ul class="space-y-2 font-medium p-0 m-0 relative">
         <li>
-            <button type="button" class="flex rounded-[20px] bg-clip-border shadow-3xl shadow-shadow-500 items-center w-full p-2 text-gray-900 transition duration-75 group bg-[#f5f7fe] dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+            <button type="button" class="border border-gray-200 flex rounded-[10px] bg-clip-border shadow-3xl shadow-shadow-500 items-center w-full p-2 text-gray-900 transition duration-75 group bg-[#f5f7fe] dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                 <div class="flex items-center space-x-4 mr-3">
                     <img class="w-10 h-10 rounded-full" :src="authUser.avatar" alt="">
                     <div class="font-medium dark:text-white truncate ... w-32">
@@ -13,22 +13,27 @@
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                 </svg>
             </button>
-            <ul id="dropdown-example" class="hidden py-2 space-y-2">
+            <ul id="dropdown-example" class="hidden p-0 m-0 mt-2">
 
                 <import-collection />
 
-                <li class="cursor-pointer" v-for="collection in collections" :key="collection.id">
-                    <a @click="loadCollection(collection)" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-100 dark:hover:bg-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
-                        </svg>
-                        <span class="flex-1 ml-3 whitespace-nowrap">
-                            {{ collection.file.info.name }}
-                        </span>
-                    </a>
-                </li>
-                <div v-if="isLoading" class="flex justify-center items-center">
-                    <span class="inline-flex h-6 w-6 animate-spin rounded-full border-4 border-dotted border-indigo-600"></span>
+                <div class="border border-gray-200 rounded-[10px] bg-clip-border bg-[#f5f7fe] shadow-3xl shadow-shadow-500 p-2 mt-2 overflow-y-auto max-h-48">
+                    <ul class="p-0 m-0">
+                        <li class="cursor-pointer mb-2" v-for="collection in collections" :key="collection.id">
+                            <a @click="loadCollection(collection)" class="border border-gray-200 flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-50 dark:hover:bg-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+                                </svg>
+                                <span class="flex-1 ml-3 whitespace-nowrap">
+                                    {{ collection.file.info.name }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div v-if="isLoading" class="flex justify-center items-center">
+                        <span class="inline-flex h-6 w-6 animate-spin rounded-full border-4 border-dotted border-indigo-600"></span>
+                    </div>
                 </div>
             </ul>
         </li>
@@ -58,6 +63,7 @@
         </div>
 
         <placeholder v-if="Object.keys(items).length <= 0" />
+
         <render-forlder v-for="item in items.item" :key="item.name+Math.random().toString(16).slice(2)" :forlder="item" />
     </ul>
 </template>
@@ -80,9 +86,6 @@
                 isLoading: false,
                 activeCollection: "",
                 activeFile: "",
-                data: {
-                    collection: ""
-                }
             };
         },
         methods: {
@@ -105,6 +108,7 @@
                 this.items = collection.file;
                 this.activeCollection = collection;
                 this.activeFile = collection.file.info;
+                this.passInitialUnFoldedRequest();
             },
 
             async inspectCollection(path) {
@@ -113,10 +117,34 @@
                     .then((json) => json );
 
                 return await result;
+            },
+
+            passInitialUnFoldedRequest() {
+                let requests = [];
+
+                for (var key in this.items.item) {
+                    if (this.items.item[key].hasOwnProperty('request')) {
+                        requests.push(this.items.item[key]);
+                    }
+                }
+
+                (requests.length > 0)
+                    ? this.$root.$emit('newRequests', requests)
+                    : this.$root.$emit('newRequests', null)
             }
         },
         mounted() {
             this.getCollections();
+
+            this.$root.$on('refresh_collections', async (collection_url) => {
+                this.getCollections();
+
+                await this.inspectCollection(collection_url).then((result) => {
+                    this.items = result;
+                    this.activeCollection = result;
+                    this.activeFile = result.info;
+                });
+            });
         }
     }
 </script>
