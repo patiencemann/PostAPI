@@ -1,7 +1,7 @@
 {{-- <overlay-loader></overlay-loader> --}}
 <header class="site-header sticky top-0 z-50 border-b-2 border-gray-300" style="background-image: url('/img/space-guy.jpg')">
     <div class="container transition-all">
-        <div class="header-inner dark:bg-[#0b14374d] flex justify-space-between dark:bg-deep-green-800">
+        <div class="header-inner border border-gray-200 dark:bg-[#0b14374d] flex justify-space-between dark:bg-deep-green-800">
             <div class="flex items-center">
 
                 {{-- MObile sidebar --}}
