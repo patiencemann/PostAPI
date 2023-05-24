@@ -1,6 +1,6 @@
 <template>
     <div class="p-2" style="width: 100%" v-if="isOpen">
-        <div class="tabnet-content rounded-[10px] border border-gray-200 transition delay-150 duration-700 ease-in-out bg-white bg-clip-border shadow-3xl shadow-shadow-500 max-h-[80vh] mb-2 mt-1">
+        <div class="tabnet-content rounded-[10px] border overflow-y-auto border-gray-200 transition delay-150 duration-700 ease-in-out bg-white bg-clip-border shadow-3xl shadow-shadow-500 max-h-[78vh] p-2 mb-2 mt-1">
             <div class="request-input flex justify-start pt-4 px-4 pb-0">
                 <div class="">
                     <select :value="request.request?.method !== undefined ? request.request.method : ''" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

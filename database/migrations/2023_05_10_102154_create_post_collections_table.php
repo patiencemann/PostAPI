@@ -13,8 +13,10 @@
         public function up() {
             Schema::create('post_collections', function (Blueprint $table) {
                 $table->id();
+                $table->string('slug')->nullable();
                 $table->unsignedBigInteger('user_id');
                 $table->longText('collection_url');
+                $table->boolean('published')->nullable()->default(false);
                 $table->timestamps();
             });
         }

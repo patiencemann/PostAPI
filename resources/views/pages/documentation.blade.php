@@ -9,12 +9,12 @@
 @section('content')
     <x-nav-bar />
 
-    <div><pop-message /></div>
-    <div><global-collection /></div>
+    <div><global-alert /></div>
+    <div><collection-distributor /></div>
 
     <div id="downloadable">
         <div class="section no-bottom-padding wf-section">
-            <compile-collection
+            <collection-compiler
                 collection="{{ json_encode($collection) }}"
                 author="{{ json_encode($collection->user) }}"
             />

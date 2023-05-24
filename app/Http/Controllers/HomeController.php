@@ -44,4 +44,15 @@
 
             return view('pages.documentation', compact('collection'));
         }
+
+        /**
+         * Show the dashboard page
+         *
+         * @return \Illuminate\Http\Response
+         */
+        public function published() {
+            $collections = PostCollection::where('published', true)->get();
+
+            return view('pages.published', compact('collections'));
+        }
     }

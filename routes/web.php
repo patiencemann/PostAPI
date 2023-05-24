@@ -42,13 +42,6 @@
     Route::group(['middleware' => ['auth']], function() {
         Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
         Route::get('/documentation/{collection}', [HomeController::class, 'documentation'])->name('documentation');
+        Route::get('/published', [HomeController::class, 'published'])->name('published');
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-    });
-
-
-    Route::get('/test-docs', function() {
-        $pw = new \PhpOffice\PhpWord\PhpWord();
-        $section = $pw->addSection();
-        \PhpOffice\PhpWord\Shared\Html::addHtml($section, "<span>FOO</span>", false, false);
-        return $pw->save("HTML.docx", "Word2007");
     });
