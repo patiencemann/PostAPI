@@ -1,0 +1,74 @@
+:root {
+    --height-logo-header: 40px;
+    --height-logo-footer: 40px;
+    --height-logo-mobile-header: 34px;
+    --height-logo-mobile-footer: 34px;
+    --max-width-global-wrap: 1600px;
+    --max-width-post-wrap: 800px;
+    --grid-gap: 16px;
+    --border-radius: 26px;
+    --margin-wrap-left-right: 5vw;
+    --font-family-system: "Anek Telugu", sans-serif;
+    --font-family-one: var(--font-family-system);
+    --font-weight-one-light: 300;
+    --font-weight-one-bold: 700;
+    --font-family-two: var(--font-family-system);
+    --font-weight-two-bold: 700;
+    --font-family-three: var(--font-family-system);
+    --font-weight-three-regular: 400;
+    --font-weight-three-medium: 500;
+    --font-weight-three-bold: 700;
+    --ghost-accent-color: #0c9aca;
+    --color-font-one: #151618;
+    --color-font-two: #fff;
+    --color-font-three: #151618;
+    --color-font-four: #fff;
+    --color-font-five: #151618;
+    --color-font-six: #fff;
+    --color-font-black: #151618;
+    --color-one: #efeef0;
+    --color-two: #e6e6ea;
+    --color-three: #151618;
+    --color-four: #151618;
+    --color-five: #151618;
+    --color-six: #fff;
+    --color-seven: #151618;
+    --color-eight: #efeef0;
+    --color-nine: #f6f6f8;
+    --color-ten: #fff;
+    --color-eleven: #f6f6f8;
+    --color-twelve: #f2f0f2;
+    --color-thirteen: #e6e6ea;
+    --color-white: #fff;
+    --color-body: #fff;
+    --color-body-partial: #9f6060;
+    --color-border-one: #ceced0;
+    --color-border-two: #ceced0;
+    --color-border-three: #797c82;
+    --border: 1px solid;
+    --color-alert-success: #61d6ad;
+    --color-alert-error: #ff6c78;
+    --opacity-one: 0.8;
+    --opacity-two: 1;
+    color-scheme: light dark;
+}
+
+.global-padding {
+    max-width: var(--max-width-global-wrap);
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: var(--margin-wrap-left-right);
+    padding-left: var(--margin-wrap-left-right);
+}
+
+.global-padding #sidebar-multi-level-sidebar {
+    width: 25% !important;
+}
+
+.global-padding .diff-requests-container {
+    width: 25% !important;
+}
+
+.global-padding .single-request-container {
+    width: 50% !important;
+}

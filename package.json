@@ -28,6 +28,11 @@
     },
     "dependencies": {
         "@kangc/v-md-editor": "^1.7.11",
-        "postman-collection": "^4.1.7"
+        "docx": "^8.0.4",
+        "file-saver": "^2.0.5",
+        "html2pdf.js": "^0.9.0",
+        "moment": "^2.29.4",
+        "postman-collection": "^4.1.7",
+        "vue-goodshare": "^1.6.1"
     }
 }

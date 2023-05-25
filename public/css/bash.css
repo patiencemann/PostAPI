@@ -9,7 +9,7 @@
     --max-width-post-wrap: 800px;
     --grid-gap: 16px;
     --border-radius: 26px;
-    --margin-wrap-left-right: 5vw;
+    --margin-wrap-left-right: 5.5vw;
     --font-family-system: "Anek Telugu", sans-serif;
     --font-family-one: var(--font-family-system);
     --font-weight-one-light: 300;
@@ -182,11 +182,12 @@ body .is-partial-color:not(.is-partial-dark) {
 .loop-section {
     background-color: rgba(245, 245, 245, 1);
     border-top: var(--border) var(--color-border-one);
+    height: 100%;
 }
 .loop-wrap {
     -webkit-animation: slideTop 0.8s ease;
     animation: slideTop 0.8s ease;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 .loop-wrap,
 .special-wrap {
@@ -257,11 +258,11 @@ body .is-partial-color:not(.is-partial-dark) {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding-right: 2.5vw;
+    padding: 1vw 2vw 2vw 2vw !important;
 }
 .item-title {
     font-family: var(--font-family-two);
-    font-size: 3rem;
+    font-size: 1.5rem !important;
     font-weight: var(--font-weight-two-bold);
     line-height: 1.3;
     max-width: 490px;
@@ -330,7 +331,7 @@ body .is-partial-color:not(.is-partial-dark) {
     fill: var(--color-font-one);
 }
 .item-excerpt {
-    font-size: 1.8rem !important;
+    font-size: 1.2rem !important;
     line-height: 1.4 !important;
     display: -webkit-box;
     overflow-y: hidden;
@@ -348,6 +349,8 @@ body .is-partial-color:not(.is-partial-dark) {
 }
 .item {
     will-change: transform;
+    background-color: white;
+    border-radius: var(--border-radius);
 }
 .item.is-loop {
     margin-bottom: 5.2vh;
@@ -921,6 +924,7 @@ body .is-partial-color:not(.is-partial-dark) {
     line-height: 0;
     position: relative;
     width: 100%;
+    height: 80px;
     margin: 0;
     transition: transform 0.3s ease;
     aspect-ratio: 1/1.2;
@@ -958,7 +962,7 @@ body .is-partial-color:not(.is-partial-dark) {
 }
 .global-radius {
     overflow: hidden;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius) var(--border-radius) 0px 0px;
 }
 .global-title {
     font-size: 6.6rem;

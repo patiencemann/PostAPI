@@ -44,11 +44,5 @@
         Route::get('/documentation/{collection}', [HomeController::class, 'documentation'])->name('documentation');
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     });
-
-
-    Route::get('/test-docs', function() {
-        $pw = new \PhpOffice\PhpWord\PhpWord();
-        $section = $pw->addSection();
-        \PhpOffice\PhpWord\Shared\Html::addHtml($section, "<span>FOO</span>", false, false);
-        return $pw->save("HTML.docx", "Word2007");
-    });
+    
+    Route::get('/published', [HomeController::class, 'published'])->name('published');

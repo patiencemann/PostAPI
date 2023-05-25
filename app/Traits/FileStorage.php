@@ -20,7 +20,7 @@
             $md5Name = $template.time().'_'.md5_file($collectionFile->getRealPath());
             $guessExtension = $collectionFile->guessExtension();
 
-            return $collectionFile->storeAs($dir, $md5Name.'.'.$guessExtension, 'public');
+            return $collectionFile->storeAs($dir, $md5Name.'.json', 'public');
         }
 
         /**

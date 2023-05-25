@@ -10,7 +10,10 @@
 
         protected $fillable = [
             'user_id',
-            'collection_url'
+            'collection_url',
+            'slug',
+            'published',
+            'published_at'
         ];
 
         public function user() {
