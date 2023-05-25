@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Released on January 13th, 2022</time>
+            <!-- <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Released on January 13th, 2022</time> -->
 
             <div class="editableFolder">
                 <p class="font-anek font-medium text-gray-600">{{ forlder.description }}</p>
