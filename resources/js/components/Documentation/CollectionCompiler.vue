@@ -215,14 +215,14 @@
                 return await result;
             },
 
-            async createMarkDownFromCollection() {
+            async fetchAndRegisterCollection() {
                 await this.getCollections();
 
                 this.info = this.preparedCollection.file.info;
                 this.items = this.preparedCollection.file.item;
                 this.data.name = this.preparedCollection.file.info.name;
                 this.data.description = this.preparedCollection.file.info.description;
-                
+
                 this.$root.$emit('load_collection', this.preparedCollection);
             },
 
@@ -275,9 +275,9 @@
                 });
             }
         },
-        mounted() {
-            this.createMarkDownFromCollection();
-            this.$root.$on('refresh_collection', () => this.createMarkDownFromCollection());
+        async mounted() {
+            await this.fetchAndRegisterCollection();
+            this.$root.$on('refresh_collection', async () => await this.fetchAndRegisterCollection());
         },
     };
 </script>

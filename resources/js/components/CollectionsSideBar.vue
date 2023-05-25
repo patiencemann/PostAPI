@@ -69,7 +69,7 @@
 </template>
 <script>
     import moment from "moment";
-    
+
     export default {
         props: {
             user: { required: true },
@@ -140,11 +140,11 @@
                 return moment(date).fromNow();
             },
         },
-        mounted() {
-            this.getCollections();
+        async mounted() {
+            await this.getCollections();
 
             this.$root.$on('refresh_collections', async (collection_url) => {
-                this.getCollections();
+                await this.getCollections();
 
                 await this.inspectCollection(collection_url).then((result) => {
                     this.items = result;
