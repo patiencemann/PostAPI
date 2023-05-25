@@ -110,7 +110,7 @@
                         <collection-tree-structure
                             v-for="item in items"
                             :key="item.name + Math.random().toString(16).slice(2)"
-                            :forlder="item"
+                            :folder="item"
                             :owner="owner"
                         />
                     </ol>
@@ -190,21 +190,15 @@
             data: {
                 name: "",
                 description: "",
-                folderName: "",
-                folderDescription: "",
-                section:  "info.name"
             }
         }),
         methods: {
             async getCollections() {
-                this.isLoading = true;
                 this.collections = [];
 
                 await this.inspectCollection(
                     this.postCollection.collection_url
                 ).then((result) => this.preparedCollection = {...this.postCollection, file: result});
-
-                this.isLoading = false;
             },
 
             async inspectCollection(path) {
@@ -223,6 +217,7 @@
                 this.data.name = this.preparedCollection.file.info.name;
                 this.data.description = this.preparedCollection.file.info.description;
 
+                // Register collection globally
                 this.$root.$emit('load_collection', this.preparedCollection);
             },
 
@@ -231,16 +226,20 @@
             },
 
             // folder desc editor
-            openEditor(forlderId) {
-                document.getElementById('#'+forlderId).classList.remove('hidden');
-                document.getElementById('*'+forlderId).classList.add('d-none');
+            openEditor(folderId) {
+                document.getElementById('#'+folderId).classList.remove('hidden');
+                document.getElementById('*'+folderId).classList.add('d-none');
             },
 
-            closeEditor(forlderId) {
-                document.getElementById('#'+forlderId).classList.add('hidden');
-                document.getElementById('*'+forlderId).classList.remove('d-none');
+            closeEditor(folderId) {
+                document.getElementById('#'+folderId).classList.add('hidden');
+                document.getElementById('*'+folderId).classList.remove('d-none');
             },
 
+            /**
+             * Submit new changed title
+             * and refresh the page
+            */
             async submitDocTitle() {
                 let spinner = document.getElementById('*_title_spinner_'+this.uniqueIdentifier);
 
@@ -258,6 +257,10 @@
                 });
             },
 
+            /**
+             * Submit new changed description
+             * and refresh the page
+             */
             async submitDocDesc() {
                 let spinner = document.getElementById('*_desc_spinner_'+this.uniqueIdentifier);
 
@@ -274,6 +277,18 @@
                     },
                 });
             }
+        },
+        watch: {
+            preparedCollection: {
+                handler(newPreparedCollection) {
+                    if(Object.keys(newPreparedCollection).length !== 0){
+                        this.data.name = newPreparedCollection.file.info.name;
+                        this.data.description = newPreparedCollection.file.info.description;
+                        this.info = newPreparedCollection.file.info;
+                        this.items = newPreparedCollection.file.item;
+                    }
+                }, immediate: true
+            },
         },
         async mounted() {
             await this.fetchAndRegisterCollection();
