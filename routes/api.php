@@ -30,4 +30,5 @@
         Route::post('/repost/collections/{collection}', [PostmanCollectionController::class, 'repost'])->name('repost.collections');
         Route::delete('/collections/{collection}', [PostmanCollectionController::class, 'destroy'])->name('delete.collections');
         Route::post('/update/collections/{collection}', [PostmanCollectionController::class, 'updateCollection'])->name('update.collections');
+        Route::post('/publish/collections/{collection}', [PostmanCollectionController::class, 'publish'])->name('publish.collections');
     });

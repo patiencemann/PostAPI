@@ -14,12 +14,12 @@
             <div class="relative">
                 <h3 class="flex  items-center mb-1 font-semibold text-gray-900 dark:text-white capitalize">{{ forlder.name }}
                     <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ml-3">{{ forlder.hasOwnProperty('request') ? "Request" : "Forlder" }}</span>
-                    <div @click="openForlderTitleEditor(uniqueIdentifier)" :id="'*_title_'+uniqueIdentifier" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+                    <div v-if="owner" @click="openForlderTitleEditor(uniqueIdentifier)" :id="'*_title_'+uniqueIdentifier" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                         </svg>
                     </div>
-                    <div @click="openDescEditor(uniqueIdentifier)" :id="'*_desc_'+uniqueIdentifier" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+                    <div v-if="owner" @click="openDescEditor(uniqueIdentifier)" :id="'*_desc_'+uniqueIdentifier" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                         </svg>
@@ -32,13 +32,6 @@
                         </div>
                         <div>
                             <button @click="submitDocFolderName(forlder.id, uniqueIdentifier)" class="relative cursor-pointer inline-flex h-10 w-20 items-center justify-center rounded-lg border border-transparent text-white bg-gray-800 hover:bg-gray-900 px-2 py-1 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75">
-                                <span v-if="isLoading" class="absolute top-0 right-0 left-0 bottom-0 w-full flex justify-center items-center bg-gray-600 rounded-lg">
-                                    <div class="inline-flex items-center gap-px">
-                                        <span class="animate-blink mx-px h-1.5 w-1.5 rounded-full bg-white"></span>
-                                        <span class="animate-blink animation-delay-150 mx-px h-1.5 w-1.5 rounded-full bg-white"></span>
-                                        <span class="animate-blink animation-delay-300 mx-px h-1.5 w-1.5 rounded-full bg-white"></span>
-                                    </div>
-                                </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                                 </svg>
@@ -86,7 +79,7 @@
             </div>
 
             <ol v-if="forlder?.item" class="relative border-l mt-3 border-gray-200 dark:border-gray-700">
-                <collection-tree-structure v-for="nextItem in forlder.item" :key="nextItem.name+uniqueIdentifier" :forlder="nextItem" />
+                <collection-tree-structure v-for="nextItem in forlder.item" :key="nextItem.name+uniqueIdentifier" :forlder="nextItem" :owner="owner" />
             </ol>
         </li>
 
@@ -107,12 +100,12 @@
                         {{ forlder.request?.method !== undefined ? forlder.request?.method : '' }}
                     </span>
                     {{ forlder.name }}
-                    <div @click="openForlderTitleEditor(uniqueIdentifier)" :id="'*_title_'+uniqueIdentifier" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+                    <div v-if="owner" @click="openForlderTitleEditor(uniqueIdentifier)" :id="'*_title_'+uniqueIdentifier" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                           </svg>
                     </div>
-                    <div @click="openDescEditor(uniqueIdentifier)" :id="'*_desc_'+uniqueIdentifier" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+                    <div v-if="owner" @click="openDescEditor(uniqueIdentifier)" :id="'*_desc_'+uniqueIdentifier" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                         </svg>
@@ -248,7 +241,7 @@
                 <div class="px-4 py-2 bg-white rounded-b-lg dark:bg-gray-800 overflow-x-auto">
                     <label for="editor" class="sr-only">Publish post</label>
 
-                    <textarea v-if="forlder.request.body?.raw !== undefined" id="editor" :value="forlder.request.body.raw" disabled rows="8" class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write an article..." required></textarea>
+                    <textarea v-if="forlder.request.body?.raw !== undefined" id="editor" :value="forlder.request.body.raw" disabled rows="8" class="block font-medium leading-7 text-gray-500 w-full px-0 text-[17px] bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write an article..." required></textarea>
 
                     <table v-if="forlder.request.body?.formdata !== undefined" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-scroll">
                         <tbody>
@@ -273,7 +266,7 @@
 </template>
 <script>
     export default {
-        props: ["forlder"],
+        props: ["forlder", "owner"],
         data() {
             return {
                 isLoading: false,
@@ -315,11 +308,11 @@
 
                 this.$root.$emit('save_collection_changes', {
                     before: () => spinner.classList.remove('hidden'),
-
-                    id: folderId,
-                    name: folderModel,
-                    section: "item",
-
+                    data: {
+                        id: folderId,
+                        name: folderModel,
+                        section: "item",
+                    },
                     after: () => {
                         spinner.classList.add('hidden');
                         this.$root.$emit('refresh_collection');
@@ -333,11 +326,11 @@
 
                 this.$root.$emit('save_collection_changes', {
                     before: () => spinner.classList.remove('hidden'),
-                    
-                    id: folderId,
-                    description: folderModel,
-                    section: "item",
-
+                    data: {
+                        id: folderId,
+                        description: folderModel,
+                        section: "item",
+                    },
                     after: () => {
                         spinner.classList.add('hidden');
                         this.$root.$emit('refresh_collection');

@@ -44,7 +44,7 @@
 
             this.$root.$on('save_collection_changes', async (payload) => {
                 payload.hasOwnProperty('before') && payload.before instanceof Function ? payload.before() : "";
-                await this.submitCollectionChanges(this.collection.id, payload);
+                await this.submitCollectionChanges(this.collection.id, payload.data);
                 payload.hasOwnProperty('after') && payload.after instanceof Function ? payload.after() : "";
             });
         }

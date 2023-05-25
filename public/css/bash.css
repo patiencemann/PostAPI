@@ -9,7 +9,7 @@
     --max-width-post-wrap: 800px;
     --grid-gap: 16px;
     --border-radius: 26px;
-    --margin-wrap-left-right: 5vw;
+    --margin-wrap-left-right: 5.5vw;
     --font-family-system: "Anek Telugu", sans-serif;
     --font-family-one: var(--font-family-system);
     --font-weight-one-light: 300;
@@ -182,6 +182,7 @@ body .is-partial-color:not(.is-partial-dark) {
 .loop-section {
     background-color: rgba(245, 245, 245, 1);
     border-top: var(--border) var(--color-border-one);
+    height: 100%;
 }
 .loop-wrap {
     -webkit-animation: slideTop 0.8s ease;

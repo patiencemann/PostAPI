@@ -12,7 +12,8 @@
             'user_id',
             'collection_url',
             'slug',
-            'published'
+            'published',
+            'published_at'
         ];
 
         public function user() {

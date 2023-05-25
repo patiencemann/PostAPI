@@ -9,7 +9,9 @@
         /></div>
 
         <!-- PUBLISH COLLECTION -->
-        <div><publish-collection /></div>
+        <div v-if="owner">
+            <publish-collection :collectionId="preparedCollection.id" />
+        </div>
 
         <div class="post-contents-wrapper">
             <div class="single-post-title">
@@ -17,8 +19,9 @@
                     {{ format(postCollection.created_at) }}
                 </div>
                 <div class="relative">
-                    <h1 class="flex">{{ data.name }}
-                        <span @click="openEditor('_title_')" id="*_title_" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+                    <h1 class="flex">
+                        {{ data.name }}
+                        <span v-if="owner" @click="openEditor('_title_')" id="*_title_" class="editBtn border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                             </svg>
@@ -61,28 +64,26 @@
                     <div class="post-author">{{ collector.name }}</div>
                 </div>
                 <div class="relative">
+                    {{data.description}}
                     <p class="post-summary font-anek flex relative">
-                        {{ data.description }}
-                        <span @click="openEditor('_desc_')" id="*_desc_" class="editBtn absolute bottom-0 right-0 border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+                        <span v-if="owner" @click="openEditor('_desc_')" id="*_desc_" class="editBtn absolute bottom-0 right-0 border border-gray-200 ml-2 bg-gray-100 rounded-circle w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                             </svg>
                         </span>
                     </p>
                     <div class="hidden" id="#_desc_">
-                        <div class="absolute -bottom-14 z-20 w-auto border border-gray-100 rounded-[10px] bg-white px-3 py-2.5 shadow-md shadow-shadow-200 dark:!bg-navy-800 dark:shadow-none md:w-[365px] md:flex-grow-0 md:gap-1 xl:w-[365px] xl:gap-2">
-                            <div class="flex flex-grow items-center justify-center relative">
+                        <div class="absolute -bottom-48 z-20 w-auto border border-gray-100 rounded-[10px] bg-white px-3 py-2.5 shadow-md shadow-shadow-200 dark:!bg-navy-800 dark:shadow-none md:w-[365px] md:flex-grow-0 md:gap-1 xl:w-[365px] xl:gap-2">
+                            <div class="flex-grow items-center justify-center relative">
                                 <div>
-                                    <textarea v-model="data.description" id="message" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                                    <textarea v-model="data.description" rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
                                 </div>
-                                <div>
+                                <div class="flex justify-between mt-3">
                                     <button @click="submitDocDesc" class="relative cursor-pointer inline-flex h-10 w-20 items-center justify-center rounded-lg border border-transparent text-white bg-gray-800 hover:bg-gray-900 px-2 py-1 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                                         </svg>
                                     </button>
-                                </div>
-                                <div>
                                     <button @click="closeEditor('_desc_')" class="relative cursor-pointer inline-flex h-10 w-20 items-center justify-center rounded-lg border border-transparent text-white bg-gray-400 hover:bg-gray-900 px-2 py-1 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -100,9 +101,9 @@
                     </div>
                 </div>
             </div>
-            <div class="share-and-download">
+            <!-- <div class="share-and-download">
                 <collection-fork-and-like :page_title="info.name" />
-            </div>
+            </div> -->
             <div class="main-container">
                 <div class="post-body w-richtext">
                     <ol class="relative border-l ml-3 border-gray-200 dark:border-gray-700">
@@ -110,6 +111,7 @@
                             v-for="item in items"
                             :key="item.name + Math.random().toString(16).slice(2)"
                             :forlder="item"
+                            :owner="owner"
                         />
                     </ol>
                 </div>
@@ -160,6 +162,7 @@
             },
             collection: { required: true },
             author: { required: true },
+            owner: { required: true }
         },
         computed: {
             authUser: {
@@ -242,11 +245,11 @@
 
                 this.$root.$emit('save_collection_changes', {
                     before: () => spinner.classList.remove('hidden'),
-
-                    id: "title",
-                    name: this.data.name,
-                    section: "info.name",
-
+                    data: {
+                        id: this.uniqueIdentifier,
+                        name: this.data.name,
+                        section: "info.name",
+                    },
                     after: () => {
                         spinner.classList.add('hidden');
                         this.$root.$emit('refresh_collection');
@@ -259,11 +262,11 @@
 
                 this.$root.$emit('save_collection_changes', {
                     before: () => spinner.classList.remove('hidden'),
-
-                    id: "description",
-                    description: this.data.description,
-                    section: "info.description",
-
+                    data: {
+                        id: this.uniqueIdentifier,
+                        description: this.data.description,
+                        section: "info.description",
+                    },
                     after: () => {
                         spinner.classList.add('hidden');
                         this.$root.$emit('refresh_collection');

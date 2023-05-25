@@ -17,6 +17,7 @@
                 $table->unsignedBigInteger('user_id');
                 $table->longText('collection_url');
                 $table->boolean('published')->nullable()->default(false);
+                $table->timestamp('published_at')->nullable()->default(now());
                 $table->timestamps();
             });
         }

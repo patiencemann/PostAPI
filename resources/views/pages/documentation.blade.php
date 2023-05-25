@@ -17,6 +17,7 @@
             <collection-compiler
                 collection="{{ json_encode($collection) }}"
                 author="{{ json_encode($collection->user) }}"
+                owner="{{ Auth::check() && $collection->user->id == user()->id }}"
             />
         </div>
     </div>

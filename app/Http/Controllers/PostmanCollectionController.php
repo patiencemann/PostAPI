@@ -90,20 +90,25 @@
 
             $updatedCollection = [];
 
-            if($request->section == "info.name") {
+            if($request->section == "info.name")
                 $collectionItems['info']['name'] = $request->changes['name'];
-            }
 
-            if($request->section == "info.description") {
+            if($request->section == "info.description")
                 $collectionItems['info']['description'] = $request->changes['description'];
-            }
 
-            $updatedCollection['info'] = $collectionItems['info'];
-            $updatedCollection['auth'] = $collectionItems['auth'];
-            $updatedCollection['event'] = $collectionItems['event'];
-            $updatedCollection['item'] = $collectionItems['item'];
+            if (array_key_exists('info', $collectionItems))
+                $updatedCollection['info'] = $collectionItems['info'];
 
-            if($request->section == "item") {
+            if (array_key_exists('auth', $collectionItems))
+                $updatedCollection['auth'] = $collectionItems['auth'];
+
+            if (array_key_exists('event', $collectionItems))
+                $updatedCollection['event'] = $collectionItems['event'];
+
+            if (array_key_exists('item', $collectionItems))
+                $updatedCollection['item'] = $collectionItems['item'];
+
+        if($request->section == "item") {
                 $collectionIn = $this->traverseThroughJSON($collectionItems['item'], $request->id, $request->changes);
                 $updatedCollection['item'] = $collectionIn;
             }
@@ -137,5 +142,16 @@
             }
 
             return $collectionItems;
+        }
+
+        /**
+         * Set collection public
+         *
+         * @param PostCollection collection
+         */
+        public function publish(PostCollection $collection) {
+            $collection->published = true;
+            $collection->save();
+            return response()->json([ "message" => "Collection published"]);
         }
     }

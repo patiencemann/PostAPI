@@ -4,8 +4,8 @@
             <button type="button" class="border border-gray-200 flex rounded-[10px] bg-clip-border shadow-3xl shadow-shadow-500 items-center w-full p-2 text-gray-900 transition duration-75 group bg-[#f5f7fe] dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                 <div class="flex items-center space-x-4 mr-3">
                     <img class="w-10 h-10 rounded-full" :src="authUser.avatar" alt="">
-                    <div class="font-medium dark:text-white truncate ... w-32">
-                        <div class="text-left font-anek font-bold">{{ authUser.name }}</div>
+                    <div class="font-medium dark:text-white truncate ... w-40">
+                        <div class="text-left font-anek font-bold truncate">{{ authUser.name }}</div>
                         <div class="text-sm text-left font-anek text-gray-500 dark:text-gray-400 truncate">Joined in {{ authUser.created_at }}</div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@
                 <div class="sticky top-10 left-0">
                     <div class="pb-0 mt-6 hidden sm:block z-0">
                         <div class="relative w-full block z-10">
-                            <div class="text-gray-900 text-base font-bold leading-22 bg-transparent">
+                            <div class="text-gray-900 text-base font-bold font-anek leading-22 bg-transparent">
                                 About this Documentation
                             </div>
                         </div>

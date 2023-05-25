@@ -10,15 +10,13 @@
         </div>
         <div class="mt-3">
             <button @click="submitRequestInfo" :class="(isLoading ? 'disabled' : '')+' relative cursor-pointer inline-flex h-10 w-32 items-center justify-center rounded-lg border border-transparent text-white bg-gray-800 hover:bg-gray-900 px-2 py-1 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75'">
-                <span v-if="isLoading" class="absolute top-0 right-0 left-0 bottom-0 w-full flex justify-center items-center bg-gray-600 rounded-lg">
-                    <div class="inline-flex items-center gap-px">
-                        <span class="animate-blink mx-px h-1.5 w-1.5 rounded-full bg-white"></span>
-                        <span class="animate-blink animation-delay-150 mx-px h-1.5 w-1.5 rounded-full bg-white"></span>
-                        <span class="animate-blink animation-delay-300 mx-px h-1.5 w-1.5 rounded-full bg-white"></span>
-                    </div>
-                </span>
                 <span>save changes</span>
             </button>
+        </div>
+        <div :class="!isLoading ? 'hidden' : ''">
+            <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full backdrop-blur-sm z-10 rounded-[10px] flex items-center justify-center">
+                <span class="relative inset-0 inline-flex h-6 w-6 animate-spin items-center justify-center rounded-full border-2 border-gray-300 after:absolute after:h-8 after:w-8 after:rounded-full after:border-2 after:border-y-indigo-500 after:border-x-transparent"></span>
+            </div>
         </div>
     </div>
 </template>
@@ -40,7 +38,11 @@
         },
         methods: {
             async submitRequestInfo() {
-                this.$root.$emit('save_collection_changes', this.data);
+                this.$root.$emit('save_collection_changes', {
+                    data: this.data,
+                    before: () => this.isLoading = true,
+                    after: () => this.isLoading = false,
+                });
             }
         },
         watch: {

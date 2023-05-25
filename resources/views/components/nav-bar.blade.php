@@ -220,7 +220,7 @@
             <div class="flex items-center">
                 @if (Auth::check())
                     <a href="{{ route('logout') }}" data-tooltip-target="tooltip-logout"
-                        class="hidden sm:inline-block text-gray-500 dark:text-gray-400 bg-red-200 dark:bg-red-700 dark:hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2 mr-1"
+                        class="hidden sm:inline-block text-gray-500 dark:text-gray-400 bg-red-200 dark:bg-red-700 dark:hover:bg-red-700 focus:outline-none rounded-lg text-sm p-2 mr-1"
                         style="font-size: 16px">
                         <div class="flex items-center justify-center">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -242,7 +242,7 @@
                     </div>
                 @else
                     <a href="{{ route('login') }}" data-tooltip-target="tooltip-login"
-                        class="hidden sm:inline-block text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2 mr-1">
+                        class="hidden sm:inline-block text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2 mr-1">
                         <div class="flex items-center justify-center">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -265,7 +265,7 @@
 
                 <a href="{{ route('published') }}"
                     data-tooltip-target="tooltip-github-2"
-                    class="hidden sm:inline-block text-gray-500 dark:text-gray-400 dark:bg-gray-700 bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-700 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1">
+                    class="hidden sm:inline-block text-gray-500 dark:text-gray-400 dark:bg-gray-700 bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5 mr-1">
                     <div class="flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
@@ -284,7 +284,7 @@
 
                 <button id="theme-toggle" onclick="toggleDarkMode()" data-tooltip-target="tooltip-toggle"
                     type="button"
-                    class="flex text-gray-500 dark:bg-gray-700 dark:text-gray-400 bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                    class="flex text-gray-500 dark:bg-gray-700 dark:text-gray-400 bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5">
                     <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" style="font-size: 20px"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">

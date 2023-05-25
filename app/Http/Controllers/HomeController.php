@@ -51,7 +51,10 @@
          * @return \Illuminate\Http\Response
          */
         public function published() {
-            $collections = PostCollection::where('published', true)->get();
+            $collections = PostCollection::with('user')
+                                ->where('published', true)
+                                ->orderBy('created_at', 'desc')
+                                ->get();
 
             return view('pages.published', compact('collections'));
         }

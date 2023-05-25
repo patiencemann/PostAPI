@@ -42,6 +42,7 @@
     Route::group(['middleware' => ['auth']], function() {
         Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
         Route::get('/documentation/{collection}', [HomeController::class, 'documentation'])->name('documentation');
-        Route::get('/published', [HomeController::class, 'published'])->name('published');
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     });
+    
+    Route::get('/published', [HomeController::class, 'published'])->name('published');
