@@ -56,6 +56,13 @@
 
     {{-- Dark theme handler --}}
     <script>
+        localStorage.theme = 'light';
+        localStorage.setItem('color-theme', 'light');
+
+        if (localStorage.getItem('color-theme') === 'dark') {
+            localStorage.setItem('color-theme', 'light');
+        }
+
         var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
