@@ -53,7 +53,7 @@ export default {
          * then redirect back to dashboard
          */
         async submitCollection() {
-            this.isLoading = true;
+            this.$root.$emit('set_loader_on');
 
             try {
                 let formData = new FormData();
@@ -77,7 +77,7 @@ export default {
                 });
             }
 
-            this.isLoading = false;
+            this.$root.$emit('set_loader_off');
             this.hasResponse = true;
         },
 
