@@ -6,7 +6,7 @@
                     <img class="w-10 h-10 rounded-full" :src="authUser.avatar" alt="">
                     <div class="font-medium dark:text-white truncate ... w-40">
                         <div class="text-left font-anek font-bold truncate">{{ authUser.name }}</div>
-                        <div class="text-sm text-left font-anek text-gray-500 dark:text-gray-400 truncate">Joined in {{ authUser.created_at }}</div>
+                        <div class="text-sm text-left font-anek text-gray-500 dark:text-gray-400 truncate">Joined {{ diffFromHuman(authUser.created_at) }}</div>
                     </div>
                 </div>
                 <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -68,6 +68,8 @@
     </ul>
 </template>
 <script>
+    import moment from "moment";
+    
     export default {
         props: {
             user: { required: true },
@@ -133,6 +135,9 @@
                 (requests.length > 0)
                     ? this.$root.$emit('newRequests', requests)
                     : this.$root.$emit('newRequests', null)
+            },
+            diffFromHuman(date) {
+                return moment(date).fromNow();
             },
         },
         mounted() {
