@@ -10,9 +10,9 @@
         <meta name="user" content="{{ Auth::user() }}">
     @endif
 
-    <meta name="description" content="A short for weblog, where i frequently updated web page used for personal commentary or business content. Often interactive and for individual blog posts where readers can leave comments." />
+    <meta name="description" content="Postapi is an API documentation Platform for developers to organize,  and document their APIs. and as a public API hub." />
     <meta name="rating" content="adult" />
-    <meta name="keywords" content="manirabona, patience, manirabona patience, patienceman, personal blog, blogs, docs" />
+    <meta name="keywords" content="patienceman, API documentation, documentation Platform, postapi, postman, API, hub, Public APIs, documentation, Platform, developers, organize, public API, to organize" />
     <meta name="rating" content="RTA-5042-1996-1400-1577-RTA" />
     <link rel="icon" type="image/x-icon" href="/img/logos/logo-no-background.svg">
 
