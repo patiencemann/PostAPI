@@ -40,6 +40,7 @@
         mounted() {
             this.$root.$on('load_collection', (collection) => {
                 this.collection = collection;
+                console.log(collection)
             });
 
             this.$root.$on('save_collection_changes', async (payload) => {

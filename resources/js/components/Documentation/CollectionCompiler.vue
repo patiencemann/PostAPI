@@ -222,6 +222,7 @@
                 this.items = this.preparedCollection.file.item;
                 this.data.name = this.preparedCollection.file.info.name;
                 this.data.description = this.preparedCollection.file.info.description;
+                
                 this.$root.$emit('load_collection', this.preparedCollection);
             },
 
