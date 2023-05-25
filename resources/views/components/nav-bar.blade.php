@@ -282,7 +282,7 @@
                         style="position: absolute; left: 0px; transform: translate(60px, 0px);"></div>
                 </div>
 
-                <button id="theme-toggle" onclick="toggleDarkMode()" data-tooltip-target="tooltip-toggle"
+                {{-- <button id="theme-toggle" onclick="toggleDarkMode()" data-tooltip-target="tooltip-toggle"
                     type="button"
                     class="flex text-gray-500 dark:bg-gray-700 dark:text-gray-400 bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5">
                     <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" style="font-size: 20px"
@@ -305,7 +305,7 @@
                     Toggle dark mode
                     <div class="tooltip-arrow" data-popper-arrow=""
                         style="position: absolute; left: 0px; transform: translate(69px, 0px);"></div>
-                </div>
+                </div> --}}
 
                 @if (Auth::check())
                     <a href="{{ route('dashboard') }}" class="ml-3">
