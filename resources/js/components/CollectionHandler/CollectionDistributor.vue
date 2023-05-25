@@ -10,8 +10,6 @@
         },
         methods: {
             async submitCollectionChanges(collectionId, data) {
-                this.isLoading = true;
-
                 try {
                     let formData = new FormData();
                         formData.append("id", data.id);
@@ -33,14 +31,11 @@
                         hasResponse: true
                     });
                 }
-
-                this.isLoading = false;
             }
         },
         mounted() {
             this.$root.$on('load_collection', (collection) => {
                 this.collection = collection;
-                console.log(collection)
             });
 
             this.$root.$on('save_collection_changes', async (payload) => {

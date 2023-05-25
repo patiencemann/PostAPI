@@ -90,31 +90,37 @@
 
             $updatedCollection = [];
 
-            if($request->section == "info.name")
+            if($request->section == "info.name"){
                 $collectionItems['info']['name'] = $request->changes['name'];
+            }
 
-            if($request->section == "info.description")
+            if($request->section == "info.description"){
                 $collectionItems['info']['description'] = $request->changes['description'];
+            }
 
-            if (array_key_exists('info', $collectionItems))
+            if(array_key_exists('info', $collectionItems)){
                 $updatedCollection['info'] = $collectionItems['info'];
+            }
 
-            if (array_key_exists('auth', $collectionItems))
+            if(array_key_exists('auth', $collectionItems)) {
                 $updatedCollection['auth'] = $collectionItems['auth'];
+            }
 
-            if (array_key_exists('event', $collectionItems))
+            if(array_key_exists('event', $collectionItems)) {
                 $updatedCollection['event'] = $collectionItems['event'];
+            }
 
-            if (array_key_exists('item', $collectionItems))
+            if(array_key_exists('item', $collectionItems)) {
                 $updatedCollection['item'] = $collectionItems['item'];
+            }
 
-        if($request->section == "item") {
+            if($request->section == "item") {
                 $collectionIn = $this->traverseThroughJSON($collectionItems['item'], $request->id, $request->changes);
                 $updatedCollection['item'] = $collectionIn;
             }
 
             $collectionJson = file_put_contents($collectionFile, json_encode($updatedCollection));
-            return response()->json([ "message" => "Collection have been updated "]);
+            return response()->json([ "message" => "Collection updated"]);
         }
 
         /**
@@ -150,7 +156,7 @@
          * @param PostCollection collection
          */
         public function publish(PostCollection $collection) {
-            $collection->published = true;
+            $collection->published = now();
             $collection->save();
             return response()->json([ "message" => "Collection published"]);
         }
