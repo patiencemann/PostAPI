@@ -14,7 +14,7 @@
     <meta name="rating" content="adult" />
     <meta name="keywords" content="patienceman, API documentation, documentation Platform, postapi, postman, API, hub, Public APIs, documentation, Platform, developers, organize, public API, to organize" />
     <meta name="rating" content="RTA-5042-1996-1400-1577-RTA" />
-    <link rel="icon" type="image/x-icon" href="/img/logos/logo-no-background.svg">
+    <link rel="icon" type="image/x-icon" href="/img/logos/logo-black.png">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
