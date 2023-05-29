@@ -57,7 +57,7 @@ export default {
 
             try {
                 let formData = new FormData();
-                formData.append("collection", this.data.collection);
+                    formData.append("collection", this.data.collection);
 
                 let response = await axios.post("/api/collections", formData);
                 let data = response.data.data;
@@ -68,7 +68,7 @@ export default {
                     hasResponse: true
                 });
 
-                this.collectionStamper(data.id, data.collection_url);
+                this.createCollectionIdentifiers(data.id, data.collection_url);
             } catch (error) {
                 this.$root.$emit('new_message', {
                     responseType: "error",
@@ -81,7 +81,7 @@ export default {
             this.hasResponse = true;
         },
 
-        async collectionStamper(collectionId, path) {
+        async createCollectionIdentifiers(collectionId, path) {
             await this.inspectCollection(path).then((result) => {
                 this.newCollection["info"] = result.info;
                 this.newCollection["event"] = result.event;
@@ -97,12 +97,16 @@ export default {
                 this.newCollection["item"] = items;
             });
 
-            this.respostCollection(collectionId, this.newCollection);
+            this.repostCollection(collectionId, this.newCollection);
         },
 
+        /**
+         * iterate over collection recusvely
+         * If the value is an object, recursively call
+         * the function with that object as the new argument
+        */
         recursiveMap(obj, callback) {
             obj.forEach((value, key, array) => {
-                // If the value is an object, recursively call the function with that object as the new argument
                 if (value.hasOwnProperty("item")) {
                     if (typeof value.item === "object") {
                         obj[key] = {
@@ -120,14 +124,12 @@ export default {
             return obj;
         },
 
-        respostCollection(collectionId, newCollection) {
-            axios.post(`/api/repost/collections/${collectionId}`, {
-                    new_collection_contents: newCollection,
-                })
+        repostCollection(collectionId, newCollection) {
+            axios.post(`/api/repost/collections/${collectionId}`, { new_collection_contents: newCollection, })
                 .then((response) => {
                     this.responseType = "success";
                     this.response = response.data.message;
-                    this.$root.$emit('refresh_collections', response.data.data.collection_url);
+                    this.$root.$emit('refresh_collections', response.data.data);
                 });
         },
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 relative" style="width: 100%" v-if="isOpen">
+    <div class="p-2 relative" style="width: 100%" v-if="isOpen || request.length > 0">
         <div class="tabnet-content rounded-[10px] border overflow-y-auto border-gray-200 transition delay-150 duration-700 ease-in-out bg-white bg-clip-border shadow-3xl shadow-shadow-500 max-h-[78vh] p-2 mb-2 mt-1">
             <div class="request-input flex justify-start pt-4 px-4 pb-0">
                 <div class="">

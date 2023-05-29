@@ -19,7 +19,7 @@
 
                 <div class="border border-gray-200 rounded-[10px] bg-clip-border bg-[#f5f7fe] shadow-3xl shadow-shadow-500 p-2 mt-2 overflow-y-auto max-h-48">
                     <ul class="p-0 m-0">
-                        <li class="cursor-pointer mb-2" v-for="collection in collections" :key="collection.id">
+                        <li class="cursor-pointer mb-2" v-for="collection in collections" :key="'collection_'+collection.slug">
                             <a @click="loadCollection(collection)" class="border border-gray-200 flex items-center p-2 text-gray-900 rounded-lg dark:text-white bg-gray-50 dark:hover:bg-gray-700">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
@@ -69,6 +69,7 @@
 </template>
 <script>
     import moment from "moment";
+    import { urlPushState, urlRemoveState } from '../Utils';
 
     export default {
         props: {
@@ -111,6 +112,11 @@
                 this.activeCollection = collection;
                 this.activeFile = collection.file.info;
 
+                // update url
+                urlPushState('collection', collection.slug);
+                urlRemoveState('requests');
+                urlRemoveState('request_tab');
+
                 this.passInitialUnFoldedRequest();
                 this.$root.$emit('load_collection', collection);
             },
@@ -133,8 +139,8 @@
                 }
 
                 (requests.length > 0)
-                    ? this.$root.$emit('newRequests', requests)
-                    : this.$root.$emit('newRequests', null)
+                    ? this.$root.$emit('list_requests', requests)
+                    : this.$root.$emit('list_requests', null)
             },
             diffFromHuman(date) {
                 return moment(date).fromNow();
@@ -143,14 +149,46 @@
         async mounted() {
             await this.getCollections();
 
-            this.$root.$on('refresh_collections', async (collection_url) => {
+            /**
+             * refresh collection on custom call
+            */
+            this.$root.$on('refresh_collections', async (collection) => {
                 await this.getCollections();
 
-                await this.inspectCollection(collection_url).then((result) => {
+                await this.inspectCollection(collection.collection_url).then((result) => {
                     this.items = result;
-                    this.activeCollection = result;
+                    this.activeCollection = {file: result, ...collection};
                     this.activeFile = result.info;
                 });
+
+                /**
+                 * reset window states
+                */
+                urlPushState('collection', this.activeCollection.slug);
+                urlRemoveState('requests');
+                urlRemoveState('request_tab');
+
+                this.$root.$emit('list_requests', {});
+                this.$root.$emit('single_request', {});
+
+                this.passInitialUnFoldedRequest();
+            });
+
+            /**
+             * Dump collection during reload
+            */
+            this.$root.$on('autoload_collection', async (payload) => {
+                payload.hasOwnProperty('before') && payload.before instanceof Function ? payload.before() : "";
+
+                await this.inspectCollection(payload.collection.collection_url).then((result) => {
+                    this.items = result;
+                    this.activeCollection = {file: result, ...payload.collection};
+                    this.activeFile = result.info;
+                });
+
+                this.passInitialUnFoldedRequest();
+
+                payload.hasOwnProperty('after') && payload.after instanceof Function ? payload.after(this.activeCollection) : "";
             });
         }
     }

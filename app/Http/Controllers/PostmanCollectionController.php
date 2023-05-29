@@ -160,4 +160,16 @@
             $collection->save();
             return response()->json([ "message" => "Collection published"]);
         }
+
+        /**
+         * show collection public
+         *
+         * @param PostCollection collection
+         */
+        public function show(PostCollection $collection) {
+            return response()->json([
+                "message" => "Collection published",
+                "data" => PostCollectionResource::make($collection)
+            ]);
+        }
     }

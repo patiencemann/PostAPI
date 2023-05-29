@@ -24,5 +24,8 @@
             <div class="diff-requests-container"><list-collection-requests /></div>
             <div class="single-request-container"><single-request /></div>
         </div>
+
+        {{-- Get url data and rerender the collection --}}
+        <div><autoload-collection /></div>
     </main>
 @stop

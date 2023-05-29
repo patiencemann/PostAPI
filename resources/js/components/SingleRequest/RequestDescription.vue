@@ -8,7 +8,7 @@
             <label for="message" class="block mb-2 text-md font-anek text-gray-900 dark:text-white">Description</label>
             <textarea v-model="data.description" id="message" rows="4" class="block p-2.5 w-full text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Describe your request..."></textarea>
         </div>
-        <div class="mt-3">
+        <div class="mt-3" v-if="id">
             <button @click="submitRequestInfo" :class="(isLoading ? 'disabled' : '')+' relative cursor-pointer inline-flex h-10 w-32 items-center justify-center rounded-lg border border-transparent text-white bg-gray-800 hover:bg-gray-900 px-2 py-1 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75'">
                 <span>save changes</span>
             </button>
